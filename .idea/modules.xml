@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/Varnish.iml" filepath="$PROJECT_DIR$/Varnish.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/varnish.iml" filepath="$PROJECT_DIR$/varnish.iml" />
       <module fileurl="file://$PROJECT_DIR$/varnish.iml" filepath="$PROJECT_DIR$/varnish.iml" />
     </modules>
   </component>
