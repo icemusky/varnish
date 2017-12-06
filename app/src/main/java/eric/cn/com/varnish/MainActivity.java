@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_message = (LinearLayout) findViewById(R.id.ll_message);
         ll_cat = (LinearLayout) findViewById(R.id.ll_cat);
         ll_my_cat= (LinearLayout) findViewById(R.id.ll_my_cat);
+        ll_my_sign= (LinearLayout) findViewById(R.id.ll_my_sign);
 
 
         ll_cat.setOnClickListener(this);
