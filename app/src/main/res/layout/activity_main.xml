@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cccccc"
+    android:background="@color/bg"
     android:orientation="vertical"
     tools:context="eric.cn.com.varnish.MainActivity">
 
@@ -21,7 +20,7 @@
             android:layout_height="45dp">
 
             <LinearLayout
-                android:id="@+id/ll_balck"
+                android:id="@+id/ll_setting"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentRight="true"
@@ -44,6 +43,7 @@
         </RelativeLayout>
 
         <ImageView
+            android:id="@+id/iv_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -77,6 +77,7 @@
             android:gravity="center_vertical">
 
             <LinearLayout
+                android:id="@+id/ll_my_cat"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -118,6 +119,7 @@
                 android:background="@color/text_blue1"></View>
 
             <LinearLayout
+                android:id="@+id/ll_my_sign"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -163,6 +165,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_info"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -203,6 +206,7 @@
             android:background="@color/grey_color4"></View>
 
         <LinearLayout
+            android:id="@+id/ll_pass"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -243,6 +247,7 @@
             android:background="@color/grey_color4"></View>
 
         <LinearLayout
+            android:id="@+id/ll_message"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -283,6 +288,7 @@
             android:background="@color/grey_color4"></View>
 
         <LinearLayout
+            android:id="@+id/ll_cat"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"

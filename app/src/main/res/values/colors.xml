@@ -14,10 +14,14 @@
     <color name="grey_color3">#777777</color>
     <color name="grey_color4">#eeeeee</color>
     <color name="grey_color5">#5D5D61</color>
+    <color name="grey_hint">#AAAFB4</color>
+    <color name="grey_line">#eeeeee</color>
+<color name="bg">#E9E9E9</color>
 
     <color name="system_bar_bg">#008EEF</color>
     <color name="text_blue1">#3776F2</color>
     <color name="blue1">#2D5799</color>
+    <color name="blue_bg">#2879FF</color>
 
 
     <color name="green">#16CA8D</color>

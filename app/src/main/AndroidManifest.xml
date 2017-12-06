@@ -45,6 +45,18 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
+        <!-- 重置密码 -->
+        <activity
+            android:name=".activity.ResePassWordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 个人信息 -->
+        <activity
+            android:name=".activity.InfoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

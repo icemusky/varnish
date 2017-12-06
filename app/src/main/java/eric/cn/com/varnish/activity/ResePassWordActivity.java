@@ -5,33 +5,35 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import eric.cn.com.varnish.R;
 
 /**
- * Created by Administrator on 2017/11/29.
+ * Created by Administrator on 2017/12/6.
  */
 
-public class ForgetPassWordActivity extends AppCompatActivity implements View.OnClickListener {
-    private LinearLayout ll_submit;
+public class ResePassWordActivity extends AppCompatActivity implements View.OnClickListener {
+    private TextView tv_login;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_password);
+        setContentView(R.layout.activity_rese_password);
         initView();
     }
 
     private void initView() {
-        ll_submit= (LinearLayout) findViewById(R.id.ll_submit);
-        ll_submit.setOnClickListener(this);
+        tv_login = (TextView) findViewById(R.id.tv_login);
+
+        tv_login.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.ll_submit:
-                startActivity(new Intent(ForgetPassWordActivity.this,ResePassWordActivity.class));
+        switch (v.getId()) {
+            case R.id.tv_login:
+                startActivity(new Intent(ResePassWordActivity.this, LoginActivity.class));
                 finish();
                 break;
         }
