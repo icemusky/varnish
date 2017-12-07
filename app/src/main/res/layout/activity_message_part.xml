@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/main_top"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:text="标题"
+            android:textColor="@color/grey_color1"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="时间："
+                android:textColor="@color/grey_color1"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="2017-09-11"
+                android:textColor="@color/grey_color1"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_context"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:text="12月7日下午，由腾讯公司、腾讯·大湘网共同主办的“腾讯QQ智慧校园信息化暨新媒体研讨会(湖南站)”在长沙召开。会上，来自湖南省教育厅、QQ智慧校园团队、校园信息化的产品专家以及湖南30余所高校党委宣传部、信息中心在内近百名老师和学生骨干共同参加了本次会议，一起探讨交流“互联网+教育”背景下院校新媒体运营和信息化建设的理念与方法。腾讯大湘网彭湘伟在会上致辞，表示腾讯·大湘网未来将会打造更多属于湖南的“互联网+”教育的优秀标杆。"
+            android:textColor="@color/grey_color1"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

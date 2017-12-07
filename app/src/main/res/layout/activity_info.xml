@@ -3,45 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@color/bg"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/blue_bg">
+    <include layout="@layout/main_top"></include>
 
-        <LinearLayout
-            android:id="@+id/ll_balck"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/x" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="个人信息"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </RelativeLayout>
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center">
 
 
@@ -53,14 +30,22 @@
                 android:textColor="@color/grey_color1"
                 android:textSize="18sp" />
 
-            <EditText
-                android:textColorHint="@color/grey_hint"
-                android:singleLine="true"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:background="@null"
-                android:hint="请输入姓名" />
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/grey_hint"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="不可更改"
+                android:textColor="@color/red01"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <View
@@ -69,13 +54,15 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@color/grey_line"></View>
+
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
+            android:id="@+id/ll_bumen"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center">
 
 
@@ -87,14 +74,20 @@
                 android:textColor="@color/grey_color1"
                 android:textSize="18sp" />
 
-            <EditText
-                android:textColorHint="@color/grey_hint"
-                android:singleLine="true"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:background="@null"
-                android:hint="请输入部门" />
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/grey_hint"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/gengduo" />
         </LinearLayout>
 
         <View
@@ -103,13 +96,14 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@color/grey_line"></View>
+
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center">
 
 
@@ -121,14 +115,22 @@
                 android:textColor="@color/grey_color1"
                 android:textSize="18sp" />
 
-            <EditText
-                android:textColorHint="@color/grey_hint"
-                android:singleLine="true"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:background="@null"
-                android:hint="请输入社员编号" />
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/grey_hint"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="不可更改"
+                android:textColor="@color/red01"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <View
@@ -137,13 +139,15 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@color/grey_line"></View>
+
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
+            android:id="@+id/ll_mail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center">
 
 
@@ -155,14 +159,20 @@
                 android:textColor="@color/grey_color1"
                 android:textSize="18sp" />
 
-            <EditText
-                android:textColorHint="@color/grey_hint"
-                android:singleLine="true"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:background="@null"
-                android:hint="请输入邮箱" />
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/grey_hint"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/gengduo" />
         </LinearLayout>
 
         <View
@@ -171,13 +181,14 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@color/grey_line"></View>
+
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center">
 
 
@@ -189,14 +200,24 @@
                 android:textColor="@color/grey_color1"
                 android:textSize="18sp" />
 
-            <EditText
-                android:textColorHint="@color/grey_hint"
-                android:singleLine="true"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:background="@null"
-                android:hint="请输入手机号" />
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/grey_hint"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="修改手机号"
+                android:textColor="@color/red01"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <View
@@ -208,6 +229,7 @@
 
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_submit"
         android:layout_width="match_parent"

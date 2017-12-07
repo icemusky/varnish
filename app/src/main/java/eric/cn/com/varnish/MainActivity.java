@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import eric.cn.com.varnish.activity.EditPassWordActvity;
 import eric.cn.com.varnish.activity.InfoActivity;
+import eric.cn.com.varnish.activity.MessageActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView iv_info;
@@ -60,9 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.ll_pass:
                 //密码修改
+                startActivity(new Intent(MainActivity.this, EditPassWordActvity.class));
                 break;
             case R.id.ll_message:
                 //通知消息
+                startActivity(new Intent(MainActivity.this, MessageActivity.class));
                 break;
             case R.id.ll_cat:
                 //车辆变更申请

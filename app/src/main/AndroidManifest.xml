@@ -57,6 +57,48 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
+        <!-- 修改手机号 -->
+        <activity
+            android:name=".activity.EditPhoneActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 绑定新手机号 -->
+        <activity
+            android:name=".activity.EditNewPhoneActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 修改新邮箱 -->
+        <activity
+            android:name=".activity.EditMailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 选择部门 -->
+        <activity
+            android:name=".activity.DepartmentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 修改密码 -->
+        <activity
+            android:name=".activity.EditPassWordActvity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 消息通知 -->
+        <activity
+            android:name=".activity.MessageActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 消息通知详情 -->
+        <activity
+            android:name=".activity.MessagePartActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
