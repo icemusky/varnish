@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import eric.cn.com.varnish.activity.EditPassWordActvity;
 import eric.cn.com.varnish.activity.InfoActivity;
 import eric.cn.com.varnish.activity.MessageActivity;
+import eric.cn.com.varnish.activity.MyCatActivity;
+import eric.cn.com.varnish.activity.SettingActivity;
+import eric.cn.com.varnish.activity.StationChangeActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView iv_info;
@@ -70,12 +73,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.ll_cat:
                 //车辆变更申请
+                startActivity(new Intent(MainActivity.this, StationChangeActivity.class));
                 break;
             case R.id.ll_setting:
                 //设置
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
                 break;
             case R.id.ll_my_cat:
                 //我的通勤车
+                startActivity(new Intent(MainActivity.this, MyCatActivity.class));
                 break;
             case R.id.ll_my_sign:
                 //签到
