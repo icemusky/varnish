@@ -117,6 +117,30 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
+        <!-- 我的通勤车-上下班 -->
+        <activity
+            android:name=".activity.MyWorkActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 通勤车 申请 -->
+        <activity
+            android:name=".activity.VarnishApplyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 上下车站点-->
+        <activity
+            android:name=".activity.VarnishUpDownActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 选择出勤-->
+        <activity
+            android:name=".activity.VarnishTrunActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

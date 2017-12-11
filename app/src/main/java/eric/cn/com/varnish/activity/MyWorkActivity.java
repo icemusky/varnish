@@ -1,6 +1,5 @@
 package eric.cn.com.varnish.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -17,32 +16,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eric.cn.com.varnish.R;
+import eric.cn.com.varnish.fragment.MyDownWorkFragment;
 import eric.cn.com.varnish.fragment.MyNextWeekFragment;
 import eric.cn.com.varnish.fragment.MyThieWeekFragment;
+import eric.cn.com.varnish.fragment.MyUpWorkFragment;
 
 /**
  * Created by Administrator on 2017/12/8.
  */
 
-public class MyCatActivity extends AppCompatActivity implements View.OnClickListener {
+public class MyWorkActivity extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout ll_top_balck;
     private TextView tv_top_title;
 
     private TabLayout OrderTab;
     private ViewPager OrderVp;
-    private MyThieWeekFragment myThieWeekFragment;
-    private MyNextWeekFragment myNextWeekFragment;
+    private MyUpWorkFragment myUpWorkFragment;
+    private MyDownWorkFragment myDownWorkFragment;
     private List<String> mTitleList;
     private List<Fragment> mFragmentList;
     private MyOrderAdapter adapter;
 
-    private LinearLayout ll_submit;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mycat);
+        setContentView(R.layout.activity_my_work);
         initView();
     }
 
@@ -52,25 +52,23 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
         tv_top_title = (TextView) findViewById(R.id.tv_top_title);
         OrderTab = (TabLayout) findViewById(R.id.OrderTab);
         OrderVp = (ViewPager) findViewById(R.id.OrderVp);
-        ll_submit = (LinearLayout) findViewById(R.id.ll_submit);
 
         ll_top_balck.setOnClickListener(this);
-        ll_submit.setOnClickListener(this);
 
-        tv_top_title.setText("我的通勤车");
-        myNextWeekFragment =new MyNextWeekFragment();
-        myThieWeekFragment =new MyThieWeekFragment();
+        tv_top_title.setText("当前日期");
+        myUpWorkFragment =new MyUpWorkFragment();
+        myDownWorkFragment =new MyDownWorkFragment();
         mTitleList = new ArrayList<>();//页卡标题集合
         mFragmentList = new ArrayList<>();//fragment集合
-        mTitleList.add("本周");
-        mTitleList.add("下周");
+        mTitleList.add("上班");
+        mTitleList.add("下班");
 
         OrderTab.setTabMode(TabLayout.MODE_FIXED);//设置tab模式，当前为系统默认模式
         OrderTab.addTab(OrderTab.newTab().setText(mTitleList.get(0)));//添加tab选项卡
         OrderTab.addTab(OrderTab.newTab().setText(mTitleList.get(1)));
 
-        mFragmentList.add(myNextWeekFragment);
-        mFragmentList.add(myThieWeekFragment);
+        mFragmentList.add(myUpWorkFragment);
+        mFragmentList.add(myDownWorkFragment);
 
         adapter = new MyOrderAdapter(getSupportFragmentManager(),mFragmentList);
         OrderVp.setAdapter(adapter);
@@ -123,10 +121,6 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.ll_top_balck:
                 finish();
-                break;
-            case R.id.ll_submit:
-                //立即申请
-                startActivity(new Intent(MyCatActivity.this,VarnishApplyActivity.class));
                 break;
         }
     }
