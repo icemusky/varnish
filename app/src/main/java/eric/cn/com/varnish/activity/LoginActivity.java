@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         List<String> list = new ArrayList<String>(keyset);
         Collections.sort(list);
 
+
         params.addBodyParameter("nonce", random);
         params.addBodyParameter("sign", HttpPost.SHA256(HttpPost.Parameter(list, hashMap) + MyApplication.API));
         params.addBodyParameter("number", et_name.getText().toString());//社员编号
