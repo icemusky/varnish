@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import eric.cn.com.varnish.R;
+import eric.cn.com.varnish.bean.DepartmentBean;
 
 /**
  * Created by Administrator on 2017/12/7.
@@ -18,10 +19,10 @@ import eric.cn.com.varnish.R;
 
 public class DepartmentAdapter extends BaseAdapter {
     private Context mContext;
-    private List<String> data;
+    private List<DepartmentBean.ListBean> data;
     private LayoutInflater mflater;
 
-    public DepartmentAdapter(Context context, List<String> data) {
+    public DepartmentAdapter(Context context, List<DepartmentBean.ListBean> data) {
         this.mflater = LayoutInflater.from(context);
         this.mContext = context;
         this.data = data;
@@ -54,6 +55,13 @@ public class DepartmentAdapter extends BaseAdapter {
         } else {
             mViewHolde = (ViewHolde) convertView.getTag();
         }
+        //隐藏其他图标
+//        if (position==0){
+//            mViewHolde.item_iv_img.setVisibility(View.VISIBLE);
+//        }else {
+            mViewHolde.item_iv_img.setVisibility(View.INVISIBLE);
+//        }
+        mViewHolde.item_tv_title.setText(data.get(position).getName());
         return convertView;
     }
 
