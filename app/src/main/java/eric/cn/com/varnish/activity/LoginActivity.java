@@ -29,6 +29,8 @@ import eric.cn.com.varnish.bean.LgoinBean;
 import eric.cn.com.varnish.http.RequestURL;
 import eric.cn.com.varnish.utils.HttpCallBack;
 import eric.cn.com.varnish.utils.HttpPost;
+import eric.cn.com.varnish.utils.MyProgressDialog;
+import eric.cn.com.varnish.utils.SharedPreferenceUtil;
 import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
 
 /**
@@ -44,13 +46,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LinearLayout ll_submit;
     private TextView tv_register;
 
-
+    private MyProgressDialog dialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        readCheckBox();
     }
+
 
     private void initView() {
         et_name = (EditText) findViewById(R.id.et_name);
@@ -73,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //登陆
                 if (!TextUtils.isEmpty(et_name.getText().toString())&&!TextUtils.isEmpty(et_pwd.getText().toString())){
                     getLoginNet();
+                    isCheckBox();
                 }else {
                     Toast.makeText(LoginActivity.this, "请填写账号密码！！", Toast.LENGTH_SHORT).show();
                 }
@@ -89,6 +94,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void getLoginNet() {
+        dialog = new MyProgressDialog();
+        dialog.ShowDialog(LoginActivity.this, "网络请求中！！！");
         RequestParams params = new RequestParams(RequestURL.login);
         final String random = HttpPost.Random() + "";
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
@@ -112,6 +119,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     //登陆成功
                     Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    MyApplication.TOKEN=result.getToken();
+                    finish();
                 }else {
                     Toast.makeText(LoginActivity.this,result.getMsg(), Toast.LENGTH_SHORT).show();
                 }
@@ -129,7 +138,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFinished() {
-
+                dialog.CloseDialog();
             }
 
             @Override
@@ -138,4 +147,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }));
     }
+
+    /**
+     * 存储账号密码
+     */
+    private void isCheckBox() {
+        if (cb_checkbox.isChecked()) {
+            SharedPreferenceUtil.createPrefereceFile("logincheck", LoginActivity.this, "logincheck", "true");
+            SharedPreferenceUtil.createPrefereceFile("user_name", LoginActivity.this, "user_name",et_name.getText().toString());
+            SharedPreferenceUtil.createPrefereceFile("password", LoginActivity.this, "password", et_pwd.getText().toString());
+        } else {
+            SharedPreferenceUtil.createPrefereceFile("logincheck", LoginActivity.this, "logincheck", "false");
+        }
+    }
+
+    /**
+     * 判断checkBox 选择上回复账号密码
+     */
+    private void readCheckBox() {
+        if (SharedPreferenceUtil.getPrefereceFileKeyValue("logincheck", this, "logincheck").equals("true")){
+            et_name.setText(SharedPreferenceUtil.getPrefereceFileKeyValue("user_name", this, "user_name"));
+            et_pwd.setText(SharedPreferenceUtil.getPrefereceFileKeyValue("password", this, "password"));
+        }
+    }
+
 }

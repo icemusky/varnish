@@ -12,6 +12,7 @@ import org.xutils.x;
 public class MyApplication extends Application {
     public static String API="AWeBhlUB7AW1HCIruRSlnWNnqgL6KeWQ";
     public static Context mContext;
+    public static String TOKEN="";
     @Override
     public void onCreate() {
         super.onCreate();

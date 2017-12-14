@@ -15,4 +15,8 @@ public class RequestURL {
     public static String reg = URL + "/api/app/reg";
     //用户登录
     public static String login = URL + "/api/app/login";
+    //密码找回
+    public static String forget = URL + "/api/app/forget";
+    //修改密码
+    public static String password = URL + "/api/app/user/password";
 }

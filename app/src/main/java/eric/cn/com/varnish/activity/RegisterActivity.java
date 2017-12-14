@@ -36,6 +36,7 @@ import eric.cn.com.varnish.http.RequestURL;
 import eric.cn.com.varnish.utils.CountDownTimerUtils;
 import eric.cn.com.varnish.utils.HttpCallBack;
 import eric.cn.com.varnish.utils.HttpPost;
+import eric.cn.com.varnish.utils.MyProgressDialog;
 import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
 
 /**
@@ -57,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private DepartmentEventBean departmentEventBean;
     private String phoneCODE = "";//短信验证码
     private String phoneCODE_ID = "";//短信验证码ID
+    private MyProgressDialog dialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(tv_send, 60000, 1000);
                     mCountDownTimerUtils.start();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "手机号错误", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.ll_bumen:
@@ -120,6 +122,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * 注册网络请求
      */
     private void getRegisterNet() {
+        dialog = new MyProgressDialog();
+        dialog.ShowDialog(RegisterActivity.this, "网络请求中！！！");
         RequestParams params = new RequestParams(RequestURL.reg);
         final String random = HttpPost.Random() + "";
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
@@ -167,7 +171,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onFinished() {
-
+                dialog.CloseDialog();
             }
 
             @Override
