@@ -19,4 +19,12 @@ public class RequestURL {
     public static String forget = URL + "/api/app/forget";
     //修改密码
     public static String password = URL + "/api/app/user/password";
+    //获取用户消息列表
+    public static String message = URL + "/api/app/user/message";
+    //获取用户消息内容
+    public static String message_detail = URL + "/api/app/user/message_detail";
+    //获取用户可选的上下车站点列表
+    public static String site = URL + "/api/app/site";
+    //上下车地点变更申请
+    public static String user_site = URL + "/api/app/user/site";
 }

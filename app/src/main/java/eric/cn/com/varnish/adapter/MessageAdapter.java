@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import eric.cn.com.varnish.R;
+import eric.cn.com.varnish.bean.MessageBean;
 
 /**
  * Created by Administrator on 2017/12/7.
@@ -18,10 +19,10 @@ import eric.cn.com.varnish.R;
 
 public class MessageAdapter extends BaseAdapter {
     private Context mContext;
-    private List<String> data;
+    private List<MessageBean.ListBean> data;
     private LayoutInflater mflater;
 
-    public MessageAdapter(Context context, List<String> data) {
+    public MessageAdapter(Context context, List<MessageBean.ListBean> data) {
         this.mflater = LayoutInflater.from(context);
         this.mContext = context;
         this.data = data;
@@ -53,6 +54,7 @@ public class MessageAdapter extends BaseAdapter {
         } else {
             mViewHolde = (ViewHolde) convertView.getTag();
         }
+        mViewHolde.item_tv_title.setText(data.get(position).getTitle());
         return convertView;
     }
 
