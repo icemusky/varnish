@@ -23,6 +23,8 @@
             android:textSize="16sp" />
 
         <EditText
+            android:textColor="@color/grey_color1"
+            android:id="@+id/et_email"
             android:textSize="18sp"
             android:gravity="center_vertical"
             android:layout_weight="1"

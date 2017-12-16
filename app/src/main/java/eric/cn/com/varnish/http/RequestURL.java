@@ -27,4 +27,10 @@ public class RequestURL {
     public static String site = URL + "/api/app/site";
     //上下车地点变更申请
     public static String user_site = URL + "/api/app/user/site";
+    //获取用户信息
+    public static String info = URL + "/api/app/user/info";
+    //修改个人信息
+    public static String edit_info = URL + "/api/app/user/edit_info";
+    //修改手机
+    public static String phone = URL + "/api/app/user/phone";
 }

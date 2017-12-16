@@ -23,6 +23,7 @@
             android:textSize="16sp" />
 
         <TextView
+         android:id="@+id/tv_phone"
             android:textSize="16sp"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -47,7 +48,9 @@
             android:textColor="@color/grey_color1"
             android:textSize="16sp" />
 
-        <TextView
+        <EditText
+            android:inputType="number"
+            android:id="@+id/tv_num"
             android:textSize="18sp"
             android:gravity="center_vertical"
             android:layout_weight="1"
@@ -56,6 +59,7 @@
             android:layout_marginLeft="10dp"
             android:textColor="@color/grey_hint" />
         <TextView
+            android:id="@+id/tv_send"
             android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

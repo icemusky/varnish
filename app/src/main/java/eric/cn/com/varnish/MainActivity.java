@@ -3,9 +3,23 @@ package eric.cn.com.varnish;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import eric.cn.com.varnish.activity.EditPassWordActvity;
 import eric.cn.com.varnish.activity.InfoActivity;
@@ -13,6 +27,12 @@ import eric.cn.com.varnish.activity.MessageActivity;
 import eric.cn.com.varnish.activity.MyCatActivity;
 import eric.cn.com.varnish.activity.SettingActivity;
 import eric.cn.com.varnish.activity.StationChangeActivity;
+import eric.cn.com.varnish.bean.InfoBean;
+import eric.cn.com.varnish.http.RequestURL;
+import eric.cn.com.varnish.utils.HttpCallBack;
+import eric.cn.com.varnish.utils.HttpPost;
+import eric.cn.com.varnish.utils.MyProgressDialog;
+import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView iv_info;
@@ -52,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_my_sign.setOnClickListener(this);
     }
 
+
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -88,4 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+
 }

@@ -109,7 +109,7 @@ public class StationChangeActivity extends AppCompatActivity implements View.OnC
     private void getUserSiteNet() {
         dialog = new MyProgressDialog();
         dialog.ShowDialog(StationChangeActivity.this, "网络请求中！！！");
-        RequestParams params = new RequestParams(RequestURL.message);
+        RequestParams params = new RequestParams(RequestURL.user_site);
         final String random = HttpPost.Random() + "";
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
         hashMap.put("nonce", random);

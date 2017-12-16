@@ -15,6 +15,9 @@
 
 
         <EditText
+            android:id="@+id/tv_phone"
+            android:inputType="phone"
+            android:textColor="@color/grey_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -37,14 +40,19 @@
 
 
         <EditText
+            android:id="@+id/et_num"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:hint="请输入验证码"
+            android:inputType="number"
+            android:textColor="@color/grey_hint"
             android:textColorHint="@color/grey_hint"
             android:textSize="16sp" />
+
         <TextView
+            android:id="@+id/tv_send"
             android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
