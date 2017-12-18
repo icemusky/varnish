@@ -247,11 +247,12 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         }));
+
     }
 
     private void bindData(InfoBean bean) {
         tv_name.setText(bean.getData().getName());//姓名
-        tv_bumen.setText(bean.getData().getGroup_id()); //错误  部门名字  现在是部门id
+        tv_bumen.setText(bean.getData().getGroup()); //  部门名字
         tv_num.setText(bean.getData().getNumber());//社员编号
         tv_email.setText(bean.getData().getEmail());//邮箱
         tv_phone.setText(bean.getData().getPhone());//手机号

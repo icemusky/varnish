@@ -8,7 +8,7 @@ public class InfoBean {
 
 
     /**
-     * data : {"name":"ceshi","group_id":"13","number":"001","email":"","phone":"15904006000","site_id":"0","avatar":"","can_sign":0,"message":"0"}
+     * data : {"name":"ceshi","group_id":"15","number":"001","email":"dhxhdhj@126.com","phone":"15904006000","site_id":"0","avatar":"","can_sign":0,"message":"0","group":"人事总务部"}
      * error : 0
      * returl :
      * msg :
@@ -54,14 +54,15 @@ public class InfoBean {
     public static class DataBean {
         /**
          * name : ceshi
-         * group_id : 13
+         * group_id : 15
          * number : 001
-         * email :
+         * email : dhxhdhj@126.com
          * phone : 15904006000
          * site_id : 0
          * avatar :
          * can_sign : 0
          * message : 0
+         * group : 人事总务部
          */
 
         private String name;
@@ -73,6 +74,7 @@ public class InfoBean {
         private String avatar;
         private int can_sign;
         private String message;
+        private String group;
 
         public String getName() {
             return name;
@@ -144,6 +146,14 @@ public class InfoBean {
 
         public void setMessage(String message) {
             this.message = message;
+        }
+
+        public String getGroup() {
+            return group;
+        }
+
+        public void setGroup(String group) {
+            this.group = group;
         }
     }
 }
