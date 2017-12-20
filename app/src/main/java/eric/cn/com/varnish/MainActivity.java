@@ -1,11 +1,14 @@
 package eric.cn.com.varnish;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -39,9 +44,11 @@ import eric.cn.com.varnish.activity.SettingActivity;
 import eric.cn.com.varnish.activity.StationChangeActivity;
 import eric.cn.com.varnish.bean.InfoBean;
 import eric.cn.com.varnish.http.RequestURL;
+import eric.cn.com.varnish.utils.CameraUtils;
 import eric.cn.com.varnish.utils.HttpCallBack;
 import eric.cn.com.varnish.utils.HttpPost;
 import eric.cn.com.varnish.utils.ImageOptionsUtils;
+import eric.cn.com.varnish.utils.MsgConfig;
 import eric.cn.com.varnish.utils.MyProgressDialog;
 import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
 
@@ -54,11 +61,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout ll_cat;
     private LinearLayout ll_my_cat;
     private LinearLayout ll_my_sign;
+    private LinearLayout ll_my_mess;
     private TextView tv_num;
     private MyProgressDialog dialog;
     private static int CAMERA_REQUEST_CODE01 = 1;
     private static int GALLERY_REQUEST_CODE01 = 2;
     private static int CROP_REQUEST_CODE01 = 3;//裁剪返回的
+
+    CameraUtils cameraUtils;
+    int provPos;
+    File driveFrontFile, driveContraryFile, identityFrontFile, identityContraryFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +86,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_pass = (LinearLayout) findViewById(R.id.ll_pass);
         ll_message = (LinearLayout) findViewById(R.id.ll_message);
         ll_cat = (LinearLayout) findViewById(R.id.ll_cat);
-        ll_my_cat= (LinearLayout) findViewById(R.id.ll_my_cat);
-        ll_my_sign= (LinearLayout) findViewById(R.id.ll_my_sign);
-        tv_num= (TextView) findViewById(R.id.tv_num);
-
+        ll_my_cat = (LinearLayout) findViewById(R.id.ll_my_cat);
+        ll_my_sign = (LinearLayout) findViewById(R.id.ll_my_sign);
+        tv_num = (TextView) findViewById(R.id.tv_num);
+        ll_my_mess= (LinearLayout) findViewById(R.id.ll_my_mess);
 
         ll_cat.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
@@ -87,71 +99,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_info.setOnClickListener(this);
         ll_my_cat.setOnClickListener(this);
         ll_my_sign.setOnClickListener(this);
+        ll_my_mess.setOnClickListener(this);
     }
 
-    private void getInfoNet() {
-
-        RequestParams params = new RequestParams(RequestURL.info);
-        final String random = HttpPost.Random() + "";
-        LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
-        hashMap.put("nonce", random);
-        hashMap.put("token", MyApplication.TOKEN);
-
-        //对key键值按字典升序排序
-        Collection<String> keyset = hashMap.keySet();
-        List<String> list = new ArrayList<String>(keyset);
-        Collections.sort(list);
-
-        params.addBodyParameter("nonce", random);
-        params.addBodyParameter("sign", HttpPost.SHA256(HttpPost.Parameter(list, hashMap) + MyApplication.API));
-        params.addBodyParameter("token", MyApplication.TOKEN);
-
-        x.http().post(params,new HttpCallBack<InfoBean>(new IAsyncHttpComplete<InfoBean>() {
-            @Override
-            public void onSuccess(InfoBean result) {
-                if (result.getError()==0){
-                    bindData(result);
-                }else {
-                    Toast.makeText(MainActivity.this,result.getMsg(),Toast.LENGTH_SHORT).show();
-                }
-
-                Log.i("InfoActivity",new Gson().toJson(result.toString()));
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(Callback.CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-            }
-
-            @Override
-            public boolean onCache(String result) {
-                return false;
-            }
-        }));
-
-    }
 
     private void bindData(InfoBean bean) {
         tv_num.setText(bean.getData().getNumber());
-        x.image().bind(iv_info,bean.getData().getAvatar(), ImageOptionsUtils.ImageUtils());
+        if (!bean.getData().getAvatar().equals("")){
+            //图片不等于空
+            x.image().bind(iv_info, RequestURL.URL+bean.getData().getAvatar(), ImageOptionsUtils.ImageUtils());
+        }else {
+            iv_info.setImageResource(R.mipmap.per_head);
+        }
+       if (bean.getData().getCan_sign()==0){
+           //为普通用户
+           ll_my_mess.setVisibility(View.VISIBLE);
+           ll_my_sign.setVisibility(View.INVISIBLE);
+           ll_message.setVisibility(View.GONE);
+       }else {
+           //车长用户
+           ll_my_mess.setVisibility(View.INVISIBLE);
+           ll_my_sign.setVisibility(View.VISIBLE);
+           ll_message.setVisibility(View.VISIBLE);
+       }
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_info:
                 //头像设置
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, GALLERY_REQUEST_CODE01);
+                cameraUtils = new CameraUtils(MainActivity.this, mHandler);
+                provPos = 1;
+                cameraUtils.MyPicture();
                 break;
             case R.id.ll_info:
                 //个人设置
@@ -180,62 +160,102 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_my_sign:
                 //签到
                 break;
+            case R.id.ll_my_mess:
+                //普通会员 消息提示
+                startActivity(new Intent(MainActivity.this, MessageActivity.class));
+                break;
         }
     }
-    @Override
+
+    /**
+     * 回调照片工具类
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-   if (requestCode == GALLERY_REQUEST_CODE01) {
-            //相册回调
-            if (data == null) {
-                return;
+        cameraUtils.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+        @SuppressLint("NewApi")
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MsgConfig.MSG_WHAT_Camera:
+                    Bundle bun = msg.getData();
+                    File caFile = (File) bun.getSerializable("CaFile");
+                    Log.i("MainActivity","file="+caFile.getName());
+                    if (caFile != null) {
+                        switch (provPos) {
+                            case 1:
+                                driveFrontFile = null;
+                                driveFrontFile = caFile;
+                                setPicture(driveFrontFile);
+                                break;
+
+                        }
+                    }
             }
-            Uri uri;
-            uri = data.getData();
-            File fileUri = convertUri(uri);
-            setPicture(fileUri);
         }
-
-    }
-    private File convertUri(Uri uri) {
-        InputStream is = null;
-        try {
-            is = getContentResolver().openInputStream(uri);
-            Bitmap bitmap = BitmapFactory.decodeStream(is);
-            is.close();
-            return saveBitmap(bitmap);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private File saveBitmap(Bitmap bitmap) {
-        File tmpDir = new File(Environment.getExternalStorageDirectory() + "/you");
-        if (!tmpDir.exists()) {
-            tmpDir.mkdir();
-        }
-        File img = new File(tmpDir.getAbsolutePath() + "jian.png");
-        try {
-            FileOutputStream fos = new FileOutputStream(img);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-            return img;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    };
 
     public void setPicture(File file) {
         dialog = new MyProgressDialog();
         dialog.ShowDialog(MainActivity.this, "图片上传中！！！");
+        RequestParams params = new RequestParams(RequestURL.avatar);
+        final String random = HttpPost.Random() + "";
+        LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
+        hashMap.put("nonce", random);
+        hashMap.put("token", MyApplication.TOKEN);
+
+        //对key键值按字典升序排序
+        Collection<String> keyset = hashMap.keySet();
+        List<String> list = new ArrayList<String>(keyset);
+        Collections.sort(list);
+
+        params.addBodyParameter("nonce", random);
+        params.addBodyParameter("sign", HttpPost.SHA256(HttpPost.Parameter(list, hashMap) + MyApplication.API));
+        params.addBodyParameter("token", MyApplication.TOKEN);
+        params.addBodyParameter("file", file);
+        params.setMultipart(true);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject jsonObject=new JSONObject(result.toString());
+                    if (jsonObject.getInt("error")==0){
+                        Toast.makeText(MainActivity.this,"头像上传成功!",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(MainActivity.this,"头像上传失败!",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.i("MainActivity", result.toString());
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+                dialog.CloseDialog();
+            }
+        });
+    }
+    /**
+     * 获取用户信息
+     */
+
+    private void getInfoNet() {
+
         RequestParams params = new RequestParams(RequestURL.info);
         final String random = HttpPost.Random() + "";
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
@@ -250,27 +270,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         params.addBodyParameter("nonce", random);
         params.addBodyParameter("sign", HttpPost.SHA256(HttpPost.Parameter(list, hashMap) + MyApplication.API));
         params.addBodyParameter("token", MyApplication.TOKEN);
-        params.addBodyParameter("avator_path", new File(String.valueOf(file)));
-         x.http().post(params, new Callback.CommonCallback<String>() {
-             @Override
-             public void onSuccess(String result) {
-                 Log.i("MainActivity",result.toString());
-             }
 
-             @Override
-             public void onError(Throwable ex, boolean isOnCallback) {
+        x.http().post(params,new HttpCallBack<InfoBean>(new IAsyncHttpComplete<InfoBean>() {
+            @Override
+            public void onSuccess(InfoBean result) {
+                if (result.getError()==0){
+                    bindData(result);
+                }else {
+                    Toast.makeText(MainActivity.this,result.getMsg(),Toast.LENGTH_SHORT).show();
+                }
 
-             }
+                Log.i("MainActivity",new Gson().toJson(result.toString()));
+            }
 
-             @Override
-             public void onCancelled(CancelledException cex) {
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
 
-             }
+            }
 
-             @Override
-             public void onFinished() {
-                 dialog.CloseDialog();
-             }
-         });
+            @Override
+            public void onCancelled(Callback.CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        }));
+
     }
 }

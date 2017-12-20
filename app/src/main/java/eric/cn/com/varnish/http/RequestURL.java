@@ -33,4 +33,8 @@ public class RequestURL {
     public static String edit_info = URL + "/api/app/user/edit_info";
     //修改手机
     public static String phone = URL + "/api/app/user/phone";
+    //上传头像
+    public static String avatar = URL + "/api/app/user/avatar";
+    //退出登录
+    public static String logout = URL + "/api/app/user/logout";
 }
