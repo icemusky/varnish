@@ -20,8 +20,12 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import eric.cn.com.varnish.MyApplication;
 import eric.cn.com.varnish.R;
@@ -42,16 +46,18 @@ public class VarnishApplyActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_top_title;
     private ListView lv;
     private VarnishApplyAdapter applyAdapter;
-    private List<VarnishApplyBean.ListBean> data;
+    private List<VarnishApplyBean.ListBean> data_list;
     private LinearLayout ll_cat;
     private TextView tv_name;
 
     private int REQUEST_REGION_PICK = 100;
+    private int REQUEST_TONG_QING=101;
     private String CarStatID = "";//选择站点ID
     private String CarStatNAME = "";//选择站点名字
     private VarnishTrunBean varnishTrunBean;
     private List<String> tongqin_id_list;
     private List<String> tongqin_name_list;
+    private Map<String,String> map_data;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,16 +160,15 @@ public class VarnishApplyActivity extends AppCompatActivity implements View.OnCl
             public void onSuccess(VarnishTrunBean result) {
                 if (result.getError() == 0) {
                     varnishTrunBean = result;
-                    tongqin_id_list=new ArrayList<String>();
-                    tongqin_name_list=new ArrayList<String>();
+                    map_data=new HashMap<String, String>();
+
                     for (int i = 0; i <varnishTrunBean.getList().size() ; i++) {
                         if (i==0){
-                            tongqin_id_list.add("0");
-                            tongqin_name_list.add("不出勤");
+                            map_data.put("0","不出勤");
                         }
-                        tongqin_id_list.add(varnishTrunBean.getList().get(i).getId());
-                        tongqin_name_list.add(varnishTrunBean.getList().get(i).getName());
+                        map_data.put(varnishTrunBean.getList().get(i).getId(),varnishTrunBean.getList().get(i).getName());
                     }
+
                     getClasses("0");
                 }
                 Log.i("VarnishTrunAdapter", new Gson().toJson(result.toString()));
@@ -191,14 +196,34 @@ public class VarnishApplyActivity extends AppCompatActivity implements View.OnCl
         }));
     }
     private void bindData(VarnishApplyBean bean) {
-        data=new ArrayList<>();
-        data.addAll(bean.getList());
-        applyAdapter=new VarnishApplyAdapter(VarnishApplyActivity.this,data,tongqin_id_list,tongqin_name_list);
+        data_list=new ArrayList<>();
+        data_list.addAll(bean.getList());
+        tongqin_name_list=new ArrayList<>();
+        Set set = map_data.entrySet();
+        for (int i = 0; i <bean.getList().size() ; i++) {
+
+            for(Iterator iter = set.iterator(); iter.hasNext();)
+            {
+                Map.Entry entry = (Map.Entry)iter.next();
+                String key = (String)entry.getKey();
+                String value = (String)entry.getValue();
+                System.out.println(key +" :" + value);
+                if (bean.getList().get(i).getClasses_id()==Integer.parseInt(key)){
+                    tongqin_name_list.add(value);
+                }
+            }
+        }
+
+
+        applyAdapter=new VarnishApplyAdapter(VarnishApplyActivity.this,data_list,tongqin_name_list);
         lv.setAdapter(applyAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(VarnishApplyActivity.this,VarnishTrunActivity.class));
+                Intent intent=new Intent();
+                intent.setClass(VarnishApplyActivity.this,VarnishTrunActivity.class);
+                intent.putExtra("position",position);
+                startActivityForResult(intent,REQUEST_TONG_QING);
             }
         });
     }
@@ -226,5 +251,22 @@ public class VarnishApplyActivity extends AppCompatActivity implements View.OnCl
                 tv_name.setText(CarStatNAME);
             }
         }
+        if (requestCode==REQUEST_TONG_QING){
+            if (data!=null){
+                int position=data.getIntExtra("position",0);
+                String id=data.getStringExtra("id");
+                String name=data.getStringExtra("name");
+                Log.i("VarnishApplyActivity","选项："+position+"id:"+id+"名字："+name);
+
+
+                data_list.get(position).setClasses_id(Integer.parseInt(id));
+                tongqin_name_list.set(position,name);
+                applyAdapter=new VarnishApplyAdapter(VarnishApplyActivity.this,data_list,tongqin_name_list);
+                lv.setAdapter(applyAdapter);
+                applyAdapter.notifyDataSetChanged();
+            }
+        }
+
     }
+
 }

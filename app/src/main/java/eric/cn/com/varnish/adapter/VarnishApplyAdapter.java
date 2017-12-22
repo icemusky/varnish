@@ -25,14 +25,13 @@ public class VarnishApplyAdapter extends BaseAdapter {
     private List<VarnishApplyBean.ListBean> data;
     private LayoutInflater mflater;
     private VarnishTrunBean bean;
-    private List<String> tongqin_id_list;
+
     private List<String> tongqin_name_list;
 
-    public VarnishApplyAdapter(Context context, List<VarnishApplyBean.ListBean> data, List<String> tongqin_id_list, List<String> tongqin_name_list) {
+    public VarnishApplyAdapter(Context context, List<VarnishApplyBean.ListBean> data,  List<String> tongqin_name_list) {
         this.mflater = LayoutInflater.from(context);
         this.mContext = context;
         this.data = data;
-        this.tongqin_id_list = tongqin_id_list;
         this.tongqin_name_list = tongqin_name_list;
     }
 
@@ -64,12 +63,8 @@ public class VarnishApplyAdapter extends BaseAdapter {
             mViewHolde = (ViewHolde) convertView.getTag();
         }
         Log.i("VarnishApplyAdapter", data.get(position).getTime() + "");
-//        Log.i("VarnishApplyAdapter",DateUtils.getDateString(data.get(position).getTime()));
         mViewHolde.tv_hao.setText(DateUtils.getDateStringByTimeSTamp((long) data.get(position).getTime(), "dd日"));
-        String id=data.get(position).getClasses_id()+"";
-//        if (id.equals(tongqin_id_list.get(position))){
-//            mViewHolde.tv_tongqin.setText(tongqin_name_list.get(position));
-//        }
+        mViewHolde.tv_tongqin.setText(tongqin_name_list.get(position));
 
         return convertView;
     }

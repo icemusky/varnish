@@ -1,10 +1,12 @@
 package eric.cn.com.varnish.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,10 +44,14 @@ public class VarnishTrunActivity extends AppCompatActivity implements View.OnCli
     private ListView lv;
     private VarnishTrunAdapter adapter;
     private List<VarnishTrunBean.ListBean> data;
+    private int REQUEST_TONG_QING=101;
+    private int Myposition;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_varnish_trun);
+        Intent intent=getIntent();
+        Myposition=intent.getIntExtra("position",0);
         initView();
         getClasses();
     }
@@ -124,6 +130,17 @@ public class VarnishTrunActivity extends AppCompatActivity implements View.OnCli
         data.addAll(bean.getList());
         adapter=new VarnishTrunAdapter(VarnishTrunActivity.this,data);
         lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.putExtra("position", Myposition);
+                intent.putExtra("id",data.get(position).getId());
+                intent.putExtra("name",data.get(position).getName());
+                setResult(REQUEST_TONG_QING, intent);
+                finish();
+            }
+        });
 
     }
 
