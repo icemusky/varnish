@@ -10,21 +10,21 @@
 
 
         <TextView
+            android:id="@+id/tv_hao"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
-            android:text="上下车站点"
             android:textColor="@color/grey_color1"
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/tv_tongqin"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:gravity="center_vertical|right"
-            android:text="111111"
             android:textColor="@color/grey_hint"
             android:textSize="18sp" />
 

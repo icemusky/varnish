@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.ll_my_sign:
                 //签到
+                getSign();
                 break;
             case R.id.ll_my_mess:
                 //普通会员 消息提示
@@ -303,6 +304,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         }));
+
+    }
+    /**
+     * 获取签到
+     */
+
+    private void getSign() {
+
+        RequestParams params = new RequestParams(RequestURL.sign);
+        final String random = HttpPost.Random() + "";
+        LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
+        hashMap.put("nonce", random);
+        hashMap.put("token", MyApplication.TOKEN);
+
+        //对key键值按字典升序排序
+        Collection<String> keyset = hashMap.keySet();
+        List<String> list = new ArrayList<String>(keyset);
+        Collections.sort(list);
+
+        params.addBodyParameter("nonce", random);
+        params.addBodyParameter("sign", HttpPost.SHA256(HttpPost.Parameter(list, hashMap) + MyApplication.API));
+        params.addBodyParameter("token", MyApplication.TOKEN);
+
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject object=new JSONObject(result.toString());
+                    if (object.getInt("error")==0){
+                        Toast.makeText(MainActivity.this,"签到成功！",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(MainActivity.this,object.getString("msg"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.i("MainActivtiy","签到:"+result.toString());
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
 
     }
 }

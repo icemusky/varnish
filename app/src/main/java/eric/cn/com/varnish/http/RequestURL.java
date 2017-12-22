@@ -37,4 +37,12 @@ public class RequestURL {
     public static String avatar = URL + "/api/app/user/avatar";
     //退出登录
     public static String logout = URL + "/api/app/user/logout";
+    //车长签到
+    public static String sign = URL + "/api/app/user/sign";
+    //查询通勤车信息
+    public static String bus = URL + "/api/app/user/bus";
+    //查询勤次信息
+    public static String classes = URL + "/api/app/user/classes";
+    //获取用户可选的勤次列表
+    public static String cat_classes = URL + "/api/app/classes";
 }

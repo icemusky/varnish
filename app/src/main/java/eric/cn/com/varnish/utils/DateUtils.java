@@ -45,4 +45,17 @@ public class DateUtils {
         SimpleDateFormat   sf = new SimpleDateFormat("yyyy年MM月dd日");
         return sf.format(d);
     }
+    /**
+     * 将时间戳转成日期字符串
+     * @param timeStamp 时间戳的值,类型为：Long
+     * @param pattern 转成字符串的格式
+     * @return
+     */
+    public static String getDateStringByTimeSTamp(Long timeStamp,String pattern){
+        String result = null;
+        Date date = new Date(timeStamp*1000);
+        SimpleDateFormat sd = new SimpleDateFormat(pattern);
+        result = sd.format(date);
+        return result;
+    }
 }
