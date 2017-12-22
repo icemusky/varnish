@@ -45,4 +45,6 @@ public class RequestURL {
     public static String classes = URL + "/api/app/user/classes";
     //获取用户可选的勤次列表
     public static String cat_classes = URL + "/api/app/classes";
+    //提交勤次信息
+    public static String submit = URL + "/api/app/user/submit";
 }
