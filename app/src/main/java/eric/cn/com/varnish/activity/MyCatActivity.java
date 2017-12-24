@@ -52,7 +52,7 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
     private MyOrderAdapter adapter;
 
     private LinearLayout ll_submit;
-
+    public static String type="0";//给下个界面传值
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +99,8 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onPageSelected(int position) {
+                type=position+1+"";
+                Log.i("MyCatActivity","选着type:"+type);
 
             }
 
@@ -142,7 +144,10 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.ll_submit:
                 //立即申请
-                startActivity(new Intent(MyCatActivity.this,VarnishApplyActivity.class));
+                Intent intent=new Intent();
+                intent.setClass(MyCatActivity.this,VarnishApplyActivity.class);
+                intent.putExtra("type","1");
+                startActivity(intent);
                 break;
         }
     }

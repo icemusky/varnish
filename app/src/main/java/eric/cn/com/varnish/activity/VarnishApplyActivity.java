@@ -4,15 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -61,11 +65,13 @@ public class VarnishApplyActivity extends AppCompatActivity implements View.OnCl
     private List<String> tongqin_id_list;
     private List<String> tongqin_name_list;
     private Map<String, String> map_data;
-
+    private String type;//0 上周 1本周  2下周
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_varnish_apply);
+        Intent intent=getIntent();
+        type=intent.getStringExtra("type");
         initView();
         getClasses();
 
@@ -116,6 +122,8 @@ public class VarnishApplyActivity extends AppCompatActivity implements View.OnCl
             public void onSuccess(VarnishApplyBean result) {
                 if (result.getError() == 0) {
                     bindData(result);
+                }else {
+                    Toast.makeText(VarnishApplyActivity.this,result.getMsg(),Toast.LENGTH_SHORT).show();
                 }
                 Log.i("VarnishApplyActivity", "查询勤次信息:" + new Gson().toJson(result.toString()));
             }
@@ -177,7 +185,7 @@ public class VarnishApplyActivity extends AppCompatActivity implements View.OnCl
                         map_data.put(varnishTrunBean.getList().get(i).getId(), varnishTrunBean.getList().get(i).getName());
                     }
 
-                    getClasses("2");
+                    getClasses(type);
                 }
                 Log.i("VarnishTrunAdapter", new Gson().toJson(result.toString()));
             }
@@ -249,7 +257,12 @@ public class VarnishApplyActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.ll_submit:
                 //提交
-                setSubmitNet("2");
+                if (!tv_name.getText().toString().equals("")){
+                setSubmitNet(type);
+            }else {
+                    Toast.makeText(VarnishApplyActivity.this,"请选着上下车站点",Toast.LENGTH_SHORT).show();
+                }
+
                 break;
         }
     }
@@ -298,6 +311,18 @@ public class VarnishApplyActivity extends AppCompatActivity implements View.OnCl
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                try {
+                    JSONObject jsonObject=new JSONObject(result.toString());
+                    if (jsonObject.getInt("error")==0){
+                        finish();
+                        Toast.makeText(VarnishApplyActivity.this,"通勤车变更成功！",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(VarnishApplyActivity.this,jsonObject.getString("msg"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 Log.i("VarnishApplyActivity", "提交申请：" + result.toString());
             }
 
