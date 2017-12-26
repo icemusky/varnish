@@ -1,5 +1,6 @@
 package eric.cn.com.varnish.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -37,12 +38,14 @@ public class MyWorkActivity extends AppCompatActivity implements View.OnClickLis
     private List<Fragment> mFragmentList;
     private MyOrderAdapter adapter;
 
-
+    public static String time;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_work);
+        Intent intent=getIntent();
+        time=intent.getStringExtra("time");
         initView();
     }
 

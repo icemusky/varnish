@@ -16,19 +16,17 @@ import eric.cn.com.varnish.activity.MyWorkActivity;
 import eric.cn.com.varnish.bean.MyCatBean;
 import eric.cn.com.varnish.utils.DateUtils;
 
-import static android.media.CamcorderProfile.get;
-
 /**
  * 我的通勤车 上周下周
  * Created by Administrator on 2017/12/7.
  */
 
-public class MyWeekAdapter extends BaseAdapter {
+public class MyNextWeekAdapter extends BaseAdapter {
     private Context mContext;
-    private List<MyCatBean.Week1Bean.ListBean> data;
+    private List<MyCatBean.Week2Bean.ListBean> data;
     private LayoutInflater mflater;
 
-    public MyWeekAdapter(Context context, List<MyCatBean.Week1Bean.ListBean> data) {
+    public MyNextWeekAdapter(Context context, List<MyCatBean.Week2Bean.ListBean> data) {
         this.mflater = LayoutInflater.from(context);
         this.mContext = context;
         this.data = data;

@@ -47,4 +47,6 @@ public class RequestURL {
     public static String cat_classes = URL + "/api/app/classes";
     //提交勤次信息
     public static String submit = URL + "/api/app/user/submit";
+    //查询通勤车详情
+    public static String bus_detail = URL + "/api/app/user/bus_detail";
 }

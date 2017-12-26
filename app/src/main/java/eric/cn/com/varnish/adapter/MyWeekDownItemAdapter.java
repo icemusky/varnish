@@ -11,18 +11,17 @@ import java.util.List;
 
 import eric.cn.com.varnish.R;
 import eric.cn.com.varnish.bean.MyWorkBean;
-import eric.cn.com.varnish.utils.view.MyListView;
 
 /**   我的通勤车 上班 下班 时间表
  * Created by Administrator on 2017/12/7.
  */
 
-public class MyWeekItemAdapter extends BaseAdapter {
+public class MyWeekDownItemAdapter extends BaseAdapter {
     private Context mContext;
-    private List<MyWorkBean.Line1Bean.SiteBean> data;
+    private List<MyWorkBean.Line2Bean.SiteBeanX> data;
     private LayoutInflater mflater;
 
-    public MyWeekItemAdapter(Context context, List<MyWorkBean.Line1Bean.SiteBean> data) {
+    public MyWeekDownItemAdapter(Context context, List<MyWorkBean.Line2Bean.SiteBeanX> data) {
         this.mflater = LayoutInflater.from(context);
         this.mContext = context;
         this.data = data;

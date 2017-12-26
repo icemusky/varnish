@@ -226,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     JSONObject jsonObject=new JSONObject(result.toString());
                     if (jsonObject.getInt("error")==0){
                         Toast.makeText(MainActivity.this,"头像上传成功!",Toast.LENGTH_SHORT).show();
+                        getInfoNet();
                     }else {
                         Toast.makeText(MainActivity.this,"头像上传失败!",Toast.LENGTH_SHORT).show();
                     }

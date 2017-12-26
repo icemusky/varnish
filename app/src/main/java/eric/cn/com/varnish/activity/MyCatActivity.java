@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
@@ -30,10 +32,13 @@ import java.util.List;
 import eric.cn.com.varnish.MainActivity;
 import eric.cn.com.varnish.MyApplication;
 import eric.cn.com.varnish.R;
+import eric.cn.com.varnish.bean.MyCatBean;
 import eric.cn.com.varnish.fragment.MyNextWeekFragment;
 import eric.cn.com.varnish.fragment.MyThieWeekFragment;
 import eric.cn.com.varnish.http.RequestURL;
+import eric.cn.com.varnish.utils.HttpCallBack;
 import eric.cn.com.varnish.utils.HttpPost;
+import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
 
 /**
  * Created by Administrator on 2017/12/8.
@@ -50,8 +55,6 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
     private List<String> mTitleList;
     private List<Fragment> mFragmentList;
     private MyOrderAdapter adapter;
-
-    private LinearLayout ll_submit;
     public static String type="0";//给下个界面传值
 
     @Override
@@ -59,7 +62,6 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycat);
         initView();
-        getBus();
     }
 
 
@@ -68,10 +70,8 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
         tv_top_title = (TextView) findViewById(R.id.tv_top_title);
         OrderTab = (TabLayout) findViewById(R.id.OrderTab);
         OrderVp = (ViewPager) findViewById(R.id.OrderVp);
-        ll_submit = (LinearLayout) findViewById(R.id.ll_submit);
 
         ll_top_balck.setOnClickListener(this);
-        ll_submit.setOnClickListener(this);
 
         tv_top_title.setText("我的通勤车");
         myNextWeekFragment =new MyNextWeekFragment();
@@ -85,8 +85,9 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
         OrderTab.addTab(OrderTab.newTab().setText(mTitleList.get(0)));//添加tab选项卡
         OrderTab.addTab(OrderTab.newTab().setText(mTitleList.get(1)));
 
-        mFragmentList.add(myNextWeekFragment);
         mFragmentList.add(myThieWeekFragment);
+        mFragmentList.add(myNextWeekFragment);
+
 
         adapter = new MyOrderAdapter(getSupportFragmentManager(),mFragmentList);
         OrderVp.setAdapter(adapter);
@@ -142,58 +143,14 @@ public class MyCatActivity extends AppCompatActivity implements View.OnClickList
             case R.id.ll_top_balck:
                 finish();
                 break;
-            case R.id.ll_submit:
-                //立即申请
-                Intent intent=new Intent();
-                intent.setClass(MyCatActivity.this,VarnishApplyActivity.class);
-                intent.putExtra("type","1");
-                startActivity(intent);
-                break;
+//            case R.id.ll_submit:
+//                //立即申请
+//                Intent intent=new Intent();
+//                intent.setClass(MyCatActivity.this,VarnishApplyActivity.class);
+//                intent.putExtra("type","1");
+//                startActivity(intent);
+//                break;
         }
     }
-    /**
-     * 获取通勤车数据
-     */
 
-    private void getBus() {
-
-        RequestParams params = new RequestParams(RequestURL.bus);
-        final String random = HttpPost.Random() + "";
-        LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
-        hashMap.put("nonce", random);
-        hashMap.put("token", MyApplication.TOKEN);
-
-        //对key键值按字典升序排序
-        Collection<String> keyset = hashMap.keySet();
-        List<String> list = new ArrayList<String>(keyset);
-        Collections.sort(list);
-
-        params.addBodyParameter("nonce", random);
-        params.addBodyParameter("sign", HttpPost.SHA256(HttpPost.Parameter(list, hashMap) + MyApplication.API));
-        params.addBodyParameter("token", MyApplication.TOKEN);
-
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-
-                Log.i("MyCatActivity","通勤车信息:"+result.toString());
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-
-    }
 }

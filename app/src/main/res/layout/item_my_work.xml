@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_marginLeft="10dp"
@@ -20,10 +21,11 @@
             android:layout_marginTop="10dp">
 
             <TextView
+                android:id="@+id/tv_chepai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="辽A"
+                android:text="辽A89544"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -31,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="89544/车牌"
+                android:text="/车牌"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -42,6 +44,7 @@
                 android:gravity="right">
 
                 <TextView
+                    android:id="@+id/tv_qin01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -50,6 +53,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_tv_qin02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -58,6 +62,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_tv_qin03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -73,6 +78,7 @@
             android:layout_marginTop="2dp">
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -81,6 +87,7 @@
                 android:textSize="12sp" />
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
@@ -89,6 +96,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -96,6 +104,7 @@
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,6 +125,7 @@
                     android:src="@mipmap/week_qi" />
 
                 <TextView
+                    android:id="@+id/tv_qi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -141,6 +151,7 @@
                     android:src="@mipmap/week_zhong" />
 
                 <TextView
+                    android:id="@+id/tv_zhong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -151,14 +162,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp">
 
             <TextView
-
+                android:id="@+id/tv_start_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -168,6 +179,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_end_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -178,13 +190,15 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:background="@drawable/week_round_shape"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="30dp">
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/week_round_shape"
+        android:gravity="center">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -192,22 +206,26 @@
             android:text="乘坐日期："
             android:textColor="@color/grey_color3"
             android:textSize="14sp" />
+
         <TextView
+            android:id="@+id/tv_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="2017-11-19"
             android:textColor="@color/grey_color3"
             android:textSize="14sp" />
+
         <LinearLayout
-            android:gravity="center|right"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center|right">
+
             <ImageView
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/gengduo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/gengduo" />
         </LinearLayout>
 
     </LinearLayout>
