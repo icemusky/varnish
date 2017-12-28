@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
+
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -27,6 +29,7 @@
         </activity>
         <!-- 首页 -->
         <activity
+
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
@@ -105,10 +108,13 @@
             android:screenOrientation="portrait"></activity>
         <!-- 设置 -->
         <activity
+
             android:name=".activity.SettingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
         <!-- 上线车站变更申请 -->
         <activity
             android:name=".activity.StationChangeActivity"
@@ -145,6 +151,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
+        <service
+            android:name=".utils.UpdataService"
+            android:enabled="true" />
     </application>
 
 </manifest>

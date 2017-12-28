@@ -10,9 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:background="@color/white">
 
 
         <TextView
@@ -40,11 +38,10 @@
         android:layout_marginRight="15dp"
         android:background="@color/grey_line"></View>
     <RelativeLayout
+        android:id="@+id/rl_gengxin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:background="@color/white">
 
 
         <TextView

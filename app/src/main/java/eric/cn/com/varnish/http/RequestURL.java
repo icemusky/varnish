@@ -49,4 +49,6 @@ public class RequestURL {
     public static String submit = URL + "/api/app/user/submit";
     //查询通勤车详情
     public static String bus_detail = URL + "/api/app/user/bus_detail";
+    //检查更新
+    public static String version = URL + "/api/app/version";
 }
