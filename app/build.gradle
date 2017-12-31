@@ -10,6 +10,15 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
     }
     buildTypes {
         release {
@@ -17,6 +26,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
 }
 
 dependencies {
@@ -33,4 +48,6 @@ dependencies {
     compile files('libs/gson-2.5.jar')
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':pickerview')
+    compile files('libs/jcore-android-1.1.8.jar')
+    compile files('libs/jpush-android-3.1.0.jar')
 }

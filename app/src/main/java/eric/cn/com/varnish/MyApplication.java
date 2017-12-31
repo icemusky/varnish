@@ -5,6 +5,7 @@ import android.content.Context;
 
 import org.xutils.x;
 
+import cn.jpush.android.api.JPushInterface;
 
 
 /**
@@ -22,6 +23,9 @@ public class MyApplication extends Application {
         mContext = getApplicationContext();
         x.Ext.init(this);
         x.Ext.setDebug(false);
+
+        JPushInterface.setDebugMode(true);//极光推送
+        JPushInterface.init(this);
 
     }
 }
