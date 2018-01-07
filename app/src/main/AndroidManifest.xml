@@ -124,7 +124,7 @@
             android:screenOrientation="portrait"></activity>
         <!-- 消息通知 -->
         <activity
-            android:name=".activity.MessageActivity"
+            android:name=".activity.x"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>

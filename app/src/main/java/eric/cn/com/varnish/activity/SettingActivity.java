@@ -36,6 +36,7 @@ import eric.cn.com.varnish.utils.CommonUtils;
 import eric.cn.com.varnish.utils.DownloadApk;
 import eric.cn.com.varnish.utils.HttpCallBack;
 import eric.cn.com.varnish.utils.HttpPost;
+import eric.cn.com.varnish.utils.MyDialog;
 import eric.cn.com.varnish.utils.MyProgressDialog;
 import eric.cn.com.varnish.utils.UpdataService;
 import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
@@ -50,6 +51,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private LinearLayout ll_submit;
     private MyProgressDialog dialog;
     private RelativeLayout rl_gengxin;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,27 +60,46 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
     private void initView() {
         ll_top_balck = (LinearLayout) findViewById(R.id.ll_top_balck);
         tv_top_title = (TextView) findViewById(R.id.tv_top_title);
         ll_submit = (LinearLayout) findViewById(R.id.ll_submit);
-        rl_gengxin= (RelativeLayout) findViewById(R.id.rl_gengxin);
+        rl_gengxin = (RelativeLayout) findViewById(R.id.rl_gengxin);
 
         tv_top_title.setText("设置");
         ll_top_balck.setOnClickListener(this);
         ll_submit.setOnClickListener(this);
         rl_gengxin.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_top_balck:
                 finish();
                 break;
             case R.id.ll_submit:
                 //退出登录
-                setlogout();
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingActivity.this);
+                final android.app.AlertDialog mydialog = builder.create();
+
+                View view = View.inflate(SettingActivity.this, R.layout.dailog_zhuche, null);
+                mydialog.setView(view, 0, 0, 0, 0);
+                LinearLayout ll_canle = (LinearLayout) view.findViewById(R.id.ll_canle);
+                ll_canle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mydialog.dismiss();
+                    }
+                });
+                LinearLayout ll_submit = (LinearLayout) view.findViewById(R.id.ll_submit);
+                ll_submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlogout();
+                    }
+                });
+                mydialog.show();
                 break;
             case R.id.rl_gengxin:
                 //更新
@@ -86,6 +107,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+
     private void getUpDate() {
         dialog = new MyProgressDialog();
         dialog.ShowDialog(SettingActivity.this, "检查版本中！！！");
@@ -105,10 +127,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         params.addBodyParameter("token", MyApplication.TOKEN);
         params.setMultipart(true);
         final String CurVirsion = CommonUtils.getInstance.getVersionInfo(this);
-        x.http().post(params,new HttpCallBack<UpDataBean>(new IAsyncHttpComplete<UpDataBean>() {
+        x.http().post(params, new HttpCallBack<UpDataBean>(new IAsyncHttpComplete<UpDataBean>() {
             @Override
             public void onSuccess(final UpDataBean result) {
-                if (result.getError()==0){
+                if (result.getError() == 0) {
                     if (VersionComparison(result.getVersionCode(), CurVirsion) == 1) {
                         if (Build.VERSION.SDK_INT <= 23) {
                             new DownloadApk(SettingActivity.this, RequestURL.URL + result.getUrl(), "1");
@@ -139,11 +161,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                             });
                             builder.create().show();
                         }
-                    }else{
-                        Toast.makeText(SettingActivity.this,"最新版本！无需更新",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SettingActivity.this, "最新版本！无需更新", Toast.LENGTH_SHORT).show();
                     }
                 }
-                Log.i("SettingActivity","版本更新"+ result.toString());
+                Log.i("SettingActivity", "版本更新" + result.toString());
             }
 
             @Override
@@ -167,6 +189,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             }
         }));
     }
+
     private void setlogout() {
         dialog = new MyProgressDialog();
         dialog.ShowDialog(SettingActivity.this, "退出中！！！");
@@ -241,6 +264,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         else
             return -1;
     }
+
     public static int[] getValue(String version, int index) {
         int[] value_index = new int[2];
         StringBuilder sb = new StringBuilder();

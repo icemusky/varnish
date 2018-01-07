@@ -29,6 +29,7 @@ import eric.cn.com.varnish.bean.LgoinBean;
 import eric.cn.com.varnish.http.RequestURL;
 import eric.cn.com.varnish.utils.HttpCallBack;
 import eric.cn.com.varnish.utils.HttpPost;
+import eric.cn.com.varnish.utils.MyDialog;
 import eric.cn.com.varnish.utils.MyProgressDialog;
 import eric.cn.com.varnish.utils.SharedPreferenceUtil;
 import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
@@ -53,6 +54,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         initView();
         readCheckBox();
+
+
     }
 
 

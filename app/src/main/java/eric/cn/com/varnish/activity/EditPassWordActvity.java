@@ -34,6 +34,7 @@ import eric.cn.com.varnish.bean.EditPassWordBean;
 import eric.cn.com.varnish.http.RequestURL;
 import eric.cn.com.varnish.utils.HttpCallBack;
 import eric.cn.com.varnish.utils.HttpPost;
+import eric.cn.com.varnish.utils.MyDialog;
 import eric.cn.com.varnish.utils.MyProgressDialog;
 import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
 
@@ -149,6 +150,9 @@ public class EditPassWordActvity extends AppCompatActivity implements View.OnCli
                     startActivity(new Intent(EditPassWordActvity.this, LoginActivity.class));
                     finish();
                     Toast.makeText(EditPassWordActvity.this, "密码修改成功！请重新登陆", Toast.LENGTH_SHORT).show();
+//                    MyDialog myDialog=new MyDialog();
+//                    myDialog.MyViewDialog(EditPassWordActvity.this,R.drawable.dialog_mima);
+//                    myDialog.MyShow();
                 } else {
                     Toast.makeText(EditPassWordActvity.this, result.getMsg(), Toast.LENGTH_SHORT).show();
                 }

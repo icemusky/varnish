@@ -36,6 +36,7 @@ import eric.cn.com.varnish.http.RequestURL;
 import eric.cn.com.varnish.utils.CountDownTimerUtils;
 import eric.cn.com.varnish.utils.HttpCallBack;
 import eric.cn.com.varnish.utils.HttpPost;
+import eric.cn.com.varnish.utils.MyDialog;
 import eric.cn.com.varnish.utils.MyProgressDialog;
 import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
 
@@ -159,7 +160,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onSuccess(RegisterBean result) {
                 if (result.getError()==0){
-                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    MyDialog myDialog=new MyDialog();
+                    myDialog.MyViewDialog(RegisterActivity.this,R.drawable.dialog_zhuche);
+                    myDialog.MyShow();
                     finish();
                 }
                 Log.i("RegisterActivity","注册:"+new Gson().toJson(result));

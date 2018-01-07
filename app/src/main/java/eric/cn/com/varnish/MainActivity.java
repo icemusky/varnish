@@ -40,6 +40,7 @@ import eric.cn.com.varnish.activity.EditPassWordActvity;
 import eric.cn.com.varnish.activity.InfoActivity;
 import eric.cn.com.varnish.activity.MessageActivity;
 import eric.cn.com.varnish.activity.MyCatActivity;
+import eric.cn.com.varnish.activity.RegisterActivity;
 import eric.cn.com.varnish.activity.SettingActivity;
 import eric.cn.com.varnish.activity.StationChangeActivity;
 import eric.cn.com.varnish.bean.InfoBean;
@@ -49,6 +50,7 @@ import eric.cn.com.varnish.utils.HttpCallBack;
 import eric.cn.com.varnish.utils.HttpPost;
 import eric.cn.com.varnish.utils.ImageOptionsUtils;
 import eric.cn.com.varnish.utils.MsgConfig;
+import eric.cn.com.varnish.utils.MyDialog;
 import eric.cn.com.varnish.utils.MyProgressDialog;
 import eric.cn.com.varnish.utils.interfaces.IAsyncHttpComplete;
 
@@ -334,7 +336,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     JSONObject object=new JSONObject(result.toString());
                     if (object.getInt("error")==0){
-                        Toast.makeText(MainActivity.this,"签到成功！",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this,"签到成功！",Toast.LENGTH_SHORT).show();
+                        MyDialog myDialog=new MyDialog();
+                        myDialog.MyViewDialog(MainActivity.this,R.drawable.dialog_qiandao);
+                        myDialog.MyShow();
                     }else {
                         Toast.makeText(MainActivity.this,object.getString("msg"),Toast.LENGTH_SHORT).show();
                     }
